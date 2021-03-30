@@ -21,7 +21,8 @@ export default {
     return {
       title: '',
       details: '',
-      detailsShow: false
+      detailsShow: false,
+      uri: `http://localhost:3000/projects/${this.project.id}`
     }
   },
   mounted() {
@@ -34,12 +35,26 @@ export default {
     },
     editProject() {
       console.log("editProject", this.project.id)
+      this.$router.push(`/projects/edit/${this.project.id}`)
     },
     deleteProject() {
       console.log("deleteProject", this.project.id)
+      fetch(this.uri, { method: 'DELETE' })
+        .then(() => {
+          this.$emit('delete', this.project.id)
+        })
+        .catch(err => console.log(err))
     },
     toggleDone() {
-      console.log("toggleDone", this.project.id)
+      fetch(this.uri, {
+        method: 'PATCH',
+        headers: { 'Content-Type' : 'application/json' },
+        body: JSON.stringify({ complete: !this.project.complete })
+      })
+        .then(() => {
+          this.$emit('toggleDone', this.project.id)
+        })
+        .catch(err => console.log(err))
     }
   }
 }

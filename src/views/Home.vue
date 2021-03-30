@@ -2,7 +2,11 @@
   <div class="home">
     <FilterNav :currentFilter='currentFilter' @filterProjects='filteredProjectsHandler' />
     <div v-for="project in filteredProjects" :key="project.id">
-      <SingleProject :project='project' />
+      <SingleProject 
+        :project='project' 
+        @toggleDone='toggleDoneHandler' 
+        @delete='deleteHandler'
+      />
     </div>
   </div>
 </template>
@@ -42,6 +46,13 @@ export default {
   methods: {
     filteredProjectsHandler(btnName) {
       this.currentFilter = btnName
+    }, 
+    toggleDoneHandler(id) {
+      const p = this.projects.find(project => project.id === id)
+      p.complete = !p.complete
+    },
+    deleteHandler(id) {
+      this.projects = this.projects.filter(project => project.id !== id)
     }
   }
 }
