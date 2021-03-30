@@ -34,7 +34,6 @@ export default {
       this.detailsShow = !this.detailsShow
     },
     editProject() {
-      console.log("editProject", this.project.id)
       this.$router.push(`/projects/edit/${this.project.id}`)
     },
     deleteProject() {

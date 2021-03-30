@@ -1,7 +1,6 @@
 <template>
   <div class="add-project">
-    Add Project
-    <ProjectForm />
+    <ProjectForm use='add'/>
   </div>
 </template>
 
@@ -9,10 +8,6 @@
 import ProjectForm from '../components/ProjectForm.vue'
 
 export default {
-  components: { ProjectForm }
+  components: { ProjectForm },
 }
 </script>
-
-<style>
-
-</style>

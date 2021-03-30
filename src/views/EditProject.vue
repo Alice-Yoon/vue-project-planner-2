@@ -1,7 +1,9 @@
 <template>
   <div class="edit-project">
-    Edit Project
-    <ProjectForm />
+    <ProjectForm
+      use='edit'
+      :id='this.id'
+    />
   </div>
 </template>
 
@@ -9,10 +11,7 @@
 import ProjectForm from '../components/ProjectForm'
 
 export default {
-  components: { ProjectForm }
+  props: ['id'],
+  components: { ProjectForm },
 }
 </script>
-
-<style>
-
-</style>
