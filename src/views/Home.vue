@@ -1,7 +1,7 @@
 <template>
   <div class="home">
-    <FilterNav />
-    <div v-for="project in projects" :key="project.id">
+    <FilterNav :currentFilter='currentFilter' @filterProjects='filteredProjectsHandler' />
+    <div v-for="project in filteredProjects" :key="project.id">
       <SingleProject :project='project' />
     </div>
   </div>
@@ -16,17 +16,33 @@ export default {
   components: { FilterNav, SingleProject },
   data() {
     return {
-      projects: []
+      projects: [],
+      currentFilter: 'all'
     }
   },
   mounted() {
     fetch('http://localhost:3000/projects')
       .then(res => res.json())
       .then(data => {
-        console.log("DATA!!", data)
         this.projects = data
       })
       .catch(err => console.log(err))
+  },
+  computed: {
+    filteredProjects() {
+      if(this.currentFilter === 'completed') {
+        return this.projects.filter(project => project.complete)
+      }
+      if(this.currentFilter === 'ongoing') {
+        return this.projects.filter(project => !project.complete)
+      }
+      return this.projects
+    }
+  },
+  methods: {
+    filteredProjectsHandler(btnName) {
+      this.currentFilter = btnName
+    }
   }
 }
 </script>

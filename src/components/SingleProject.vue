@@ -25,7 +25,6 @@ export default {
     }
   },
   mounted() {
-    console.log('project::', this.project)
     this.title = this.project.title
     this.details = this.project.details
   },
